@@ -17,7 +17,7 @@ partial derivs is correct but my results seem off. Gravity in the ECI seems righ
 the numerical integration or how I implemented the partial deriv updates as position changes. 
 
 With more time, I would dig deeper into the steps of the sim and understand where and when the gravity term exponentially decreases. I would also interrogate the 
-coefficients used as well as the routine for partial derivative computation.
+coefficients used as well as the routine for partial derivative computation. I read a bit about instability at the poles... not sure if that is in play but worth checking.
 
 I also had an RK4 method that I used to verify the satellite dynamics initially but did not include that here. My plan was to get good results with Euler and then use RK4.
 
