@@ -17,17 +17,23 @@ Eigen::Vector3d gEcef = Eigen::Vector3d::Zero();
 std::vector<double> gEci = {0.0, 0.0, 0.0};
 
 void provideHarmonicCoefficientsJGM3(std::vector<std::vector<double>>& C, std::vector<std::vector<double>>& S) {
+
+    // These do not work... unsure why
     C[0][0] = -0.10826360229840e-2;
     C[0][1] = -0.24140000522221e-9;
     C[0][2] =  0.15745360427672e-5;
     S[0][0] =  0.0;
     S[0][1] =  0.15430999737844e-8;
     S[0][2] = -0.90386807301869e-6;
+    
 }
 
 void provideHarmonicCoefficientsEGM2008(std::vector<std::vector<double>>& C, std::vector<std::vector<double>>& S) {
     C.resize(GRAV_MODEL_ORDER + 1, std::vector<double>(GRAV_MODEL_ORDER + 1, 0.0));
     S.resize(GRAV_MODEL_ORDER + 1, std::vector<double>(GRAV_MODEL_ORDER + 1, 0.0));
+
+    // Initially thought the coefficients were my issue, but when setting satellite 
+    // alt to ~1km and Lat/Long to 0,0 I get -9.81m/s^2 for grav. These seem to be ok?
 
     C[0][0] = 1.0; // Normalized coefficient for degree 0, order 0
     C[2][0] = -484.165371736e-6; // Normalized coefficient for degree 2, order 0 (J2)
@@ -72,6 +78,7 @@ std::vector<double> computeGravitationalAcceleration(double r, double theta, dou
     double g_phi = 0.0;
     double g_lambda = 0.0;
 
+    // for (int l = 0; l < 1; ++l) { // uncomment for JGM3... got lazy here...
     for (int l = 0; l <= GRAV_MODEL_ORDER; ++l) {
         double r_l = pow(R / r, l);
 
